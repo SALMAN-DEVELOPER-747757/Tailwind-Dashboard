@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salman Khan - CS & SE Enterprise Dashboard</title>
+  
+  <!-- Tailwind CSS CDN with explicit dark mode config -->
+   
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            },
+            accent: {
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              purple: '#a855f7'
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="h-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 antialiased font-sans selection:bg-brand-500 selection:text-white">
+
+  <div class="min-h-full flex flex-col md:flex-row">
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="w-full md:w-64 bg-white dark:bg-slate-900/90 backdrop-blur-xl border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between p-5 shrink-0 z-20">
+      <div class="space-y-6">
+        <!-- Brand Logo with Profile Avatar -->
+        <div class="flex items-center gap-3 px-1">
+          <div class="relative flex-shrink-0">
+            <img src="profile pic.png" alt="Salman Khan" class="h-30 w-40 rounded-full object-cover shadow-lg shadow-brand-500/30 ring-2 ring-brand-500/50" />
+            <span class="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-accent-emerald ring-2 ring-white dark:ring-slate-900 animate-pulse"></span>
+          </div>
+          <!-- <div>
+            <span class="font-extrabold text-base tracking-tight bg-gradient-to-r from-brand-600 via-slate-800 to-indigo-600 dark:from-white dark:via-slate-200 dark:to-brand-400 bg-clip-text text-transparent">Salman Khan</span>
+            <span class="text-[9px] uppercase tracking-widest font-mono text-accent-cyan block">Software Engineer</span>
+          </div>  -->
+        </div>
+        <div>
+
+            <span class="text-[10px] font-extrabold text-base tracking-tight bg-gradient-to-r from-brand-600 via-slate-800 to-indigo-600 dark:from-white dark:via-slate-200 dark:to-brand-400 bg-clip-text text-lg ">BERLIN</span>
+            <span class="text-[15px] uppercase tracking-widest font-mono text-accent-cyan block">Software Engineer</span>
+          </div> 
+
+        <!-- Navigation Tabs -->
+        <nav class="space-y-1.5">
+          <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 bg-gradient-to-r from-brand-600/30 via-brand-500/10 to-transparent text-brand-600 dark:text-brand-400 border border-brand-500/30 shadow-md shadow-brand-500/10">
+            <span>⚡</span> Dashboard
+          </button>
+          <button onclick="switchTab('habits')" id="nav-habits" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all duration-200">
+            <span>🔥</span> Coding Routines
+          </button>
+          <button onclick="switchTab('planner')" id="nav-planner" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all duration-200">
+            <span>📋</span> Sprint Planner
+          </button>
+          <button onclick="switchTab('timer')" id="nav-timer" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all duration-200">
+            <span>⏱️</span> Deep Focus Timer
+          </button>
+          <button onclick="switchTab('analytics')" id="nav-analytics" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all duration-200">
+            <span>📊</span> Dev Insights
+          </button>
+          <button onclick="switchTab('settings')" id="nav-settings" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all duration-200">
+            <span>⚙️</span> Settings
+          </button>
+        </nav>
+      </div>
+
+      <!-- User Profile & Theme Toggle Button -->
+      <div class="pt-4 border-t border-slate-200 dark:border-slate-800/80 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img src="profile pic.png" alt="Avatar" class="h-15 w-20 rounded-full border border-brand-500/40" />
+          <div>
+            <p class="text-xs font-semibold text-slate-900 dark:text-white leading-tight">Salman Khan</p>
+            <p class="text-[10px] font-mono text-brand-600 dark:text-accent-cyan">System Active</p>
+          </div>
+        </div>
+        
+        <button id="theme-toggle-btn" onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all shadow-sm" title="Toggle Theme">
+          <span id="theme-icon">☀️</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA WITH ANIMATED CANVAS -->
+    <main class="flex-1 p-6 md:p-8 overflow-y-auto bg-slate-50 dark:bg-slate-950 relative">
+
+      <!-- Interactive Background Canvas Particle Effect -->
+      <canvas id="bg-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-40"></canvas>
+
+      <!-- Ambient Glow Behind Header -->
+      <div class="absolute top-0 right-1/4 w-96 h-96 bg-brand-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- TOP HEADER BAR -->
+      <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-8 relative z-10">
+        <div>
+          <h1 id="page-title" class="text-2xl font-black tracking-tight text-slate-900 dark:text-white">Dashboard Overview</h1>
+          <p id="page-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Welcome back, Salman. Real-time engineering metrics and active sprint status.</p>
+        </div>
+        
+        <div class="flex items-center gap-3">
+          <div class="relative w-full sm:w-64">
+            <input type="text" placeholder="Search tasks, repos, habits (⌘K)..." class="w-full bg-white dark:bg-slate-900/90 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 pl-9 focus:outline-none focus:border-brand-500 transition shadow-sm" />
+            <span class="absolute left-3 top-3 text-xs text-slate-400">🔍</span>
+          </div>
+          <button onclick="switchTab('timer')" class="bg-gradient-to-r from-brand-600 via-indigo-600 to-accent-purple hover:opacity-95 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-all duration-200 shadow-lg shadow-brand-600/30 whitespace-nowrap active:scale-95">
+            ⚡ Focus Session
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 1: DASHBOARD OVERVIEW -->
+      <section id="tab-dashboard" class="tab-content space-y-6 relative z-10">
+        
+        <!-- Hero Gradient Banner with 3D Tilt Effect -->
+        <div class="tilt-card relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand-700 via-indigo-800 to-slate-900 border border-brand-500/30 p-6 md:p-8 shadow-2xl shadow-brand-600/20">
+          <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-accent-cyan/10 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="flex flex-col md:flex-row justify-between md:items-center gap-6 relative z-10">
+            <div class="space-y-2">
+              <span class="inline-block bg-brand-500/20 text-brand-300 text-[10px] font-mono font-semibold px-2.5 py-1 rounded-full border border-brand-400/30">
+                ● ACTIVE SPRINT • WEEK 4
+              </span>
+              <h2 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">Good morning, Salman.</h2>
+              <p class="text-xs text-slate-300 max-w-xl leading-relaxed">
+                You have completed 3 of 6 daily goals. Your productivity streak is at an all-time high of <span class="text-accent-cyan font-bold">12 days</span>!
+              </p>
+            </div>
+            
+            <div class="bg-slate-950/60 backdrop-blur-md rounded-2xl p-4 border border-white/10 flex gap-6 text-center shrink-0 shadow-lg">
+              <div>
+                <p class="text-2xl font-black text-white font-mono counter" data-target="75" data-suffix="%">0%</p>
+                <p class="text-[9px] text-slate-400 uppercase tracking-wider font-semibold">Sprint Score</p>
+              </div>
+              <div class="border-l border-slate-800 pl-6">
+                <p class="text-2xl font-black text-accent-cyan font-mono counter" data-target="4.2" data-suffix="h" data-decimal="true">0h</p>
+                <p class="text-[9px] text-slate-400 uppercase tracking-wider font-semibold">Code Focus</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Metric Cards Grid with Animated Counters -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="tilt-card bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 hover:border-brand-500/50 p-5 rounded-2xl transition-all duration-300 shadow-md dark:shadow-black/40">
+            <div class="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-medium">Habits Completed</span>
+              <span class="text-amber-400">🔥</span>
+            </div>
+            <p class="text-2xl font-bold text-slate-900 dark:text-white mt-3 font-mono">2 / 4</p>
+            <div class="mt-2 flex items-center gap-1.5 text-xs text-accent-emerald font-medium">
+              <span>↑</span> <span>+2 from yesterday</span>
+            </div>
+          </div>
+
+          <div class="tilt-card bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 hover:border-brand-500/50 p-5 rounded-2xl transition-all duration-300 shadow-md dark:shadow-black/40">
+            <div class="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-medium">Tasks Due Today</span>
+              <span class="text-accent-cyan">📋</span>
+            </div>
+            <p class="text-2xl font-bold text-slate-900 dark:text-white mt-3 font-mono">1 / 4</p>
+            <div class="mt-2 flex items-center gap-1.5 text-xs text-amber-500 font-medium">
+              <span>●</span> <span>3 tasks pending</span>
+            </div>
+          </div>
+
+          <div class="tilt-card bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 hover:border-brand-500/50 p-5 rounded-2xl transition-all duration-300 shadow-md dark:shadow-black/40">
+            <div class="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-medium">Focus Sessions</span>
+              <span class="text-purple-400">⏱️</span>
+            </div>
+            <p class="text-2xl font-bold text-slate-900 dark:text-white mt-3 font-mono counter" data-target="4" data-suffix=" Sessions">0 Sessions</p>
+            <div class="mt-2 flex items-center gap-1.5 text-xs text-brand-600 dark:text-brand-400 font-medium">
+              <span>⚡</span> <span>120 mins total</span>
+            </div>
+          </div>
+
+          <div class="tilt-card bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 hover:border-brand-500/50 p-5 rounded-2xl transition-all duration-300 shadow-md dark:shadow-black/40">
+            <div class="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-medium">Weekly Consistency</span>
+              <span class="text-accent-emerald">📈</span>
+            </div>
+            <p class="text-2xl font-bold text-slate-900 dark:text-white mt-3 font-mono counter" data-target="92" data-suffix="%">0%</p>
+            <div class="mt-2 flex items-center gap-1.5 text-xs text-accent-emerald font-medium">
+              <span>↑</span> <span>+4.5% streak trend</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Priority Split Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-md">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <span>🎯</span> Today's Priority Tasks
+              </h3>
+              <button onclick="switchTab('planner')" class="text-xs text-brand-600 dark:text-brand-400 hover:underline font-medium">Manage all →</button>
+            </div>
+            <div class="space-y-2.5">
+              <div class="p-3 bg-slate-50 dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-800/80 flex justify-between items-center hover:translate-x-1 transition-transform">
+                <span class="text-xs font-medium text-slate-800 dark:text-slate-200">Complete CS architecture diagram</span>
+                <span class="text-[10px] bg-rose-500/10 text-rose-500 border border-rose-500/20 px-2 py-0.5 rounded font-mono">HIGH</span>
+              </div>
+              <div class="p-3 bg-slate-50 dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-800/80 flex justify-between items-center hover:translate-x-1 transition-transform">
+                <span class="text-xs font-medium text-slate-800 dark:text-slate-200">Fix SQL connection pool latency</span>
+                <span class="text-[10px] bg-amber-500/10 text-amber-500 border border-amber-500/20 px-2 py-0.5 rounded font-mono">MEDIUM</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-md">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <span>🔥</span> Daily Habit Check-in
+              </h3>
+              <button onclick="switchTab('habits')" class="text-xs text-brand-600 dark:text-brand-400 hover:underline font-medium">View routines →</button>
+            </div>
+            <div class="space-y-2.5">
+              <div class="p-3 bg-slate-50 dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-800/80 flex justify-between items-center hover:translate-x-1 transition-transform">
+                <span class="text-xs font-medium text-slate-800 dark:text-slate-200">Solve 2 LeetCode Problems</span>
+                <span class="text-[10px] bg-accent-emerald/10 text-accent-emerald border border-accent-emerald/20 px-2 py-0.5 rounded font-mono">✓ COMPLETED</span>
+              </div>
+              <div class="p-3 bg-slate-50 dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-800/80 flex justify-between items-center hover:translate-x-1 transition-transform">
+                <span class="text-xs font-medium text-slate-800 dark:text-slate-200">Git Commit / OSS Push</span>
+                <span class="text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-2 py-0.5 rounded font-mono">PENDING</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- TAB 2: HABITS & ROUTINES -->
+      <section id="tab-habits" class="tab-content space-y-6 hidden relative z-10">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+          <div>
+            <h2 class="text-lg font-bold text-slate-900 dark:text-white">Habits & Daily Routines</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Build unbreakable consistency with active daily streak tracking.</p>
+          </div>
+          <button onclick="addHabitPrompt()" class="bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition shadow-lg shadow-brand-600/30">
+            + Create New Habit
+          </button>
+        </div>
+
+        <div id="habits-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl flex justify-between items-center shadow-md">
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="font-semibold text-slate-900 dark:text-white text-sm">Solve 2 LeetCode Problems</h3>
+                <span class="text-[10px] bg-amber-500/10 text-amber-500 px-2 py-0.5 rounded-md font-mono border border-amber-500/20">🔥 12 Day Streak</span>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Daily Goal • Data Structures & Algorithms</p>
+            </div>
+            <button onclick="toggleHabit(this)" class="habit-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-accent-emerald/10 text-accent-emerald border border-accent-emerald/30 transition">
+              ✓ Completed Today
+            </button>
+          </div>
+
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl flex justify-between items-center shadow-md">
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="font-semibold text-slate-900 dark:text-white text-sm">Code / Build Project (1hr)</h3>
+                <span class="text-[10px] bg-amber-500/10 text-amber-500 px-2 py-0.5 rounded-md font-mono border border-amber-500/20">🔥 8 Day Streak</span>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Daily Goal • GitHub Activity</p>
+            </div>
+            <button onclick="toggleHabit(this)" class="habit-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+              Mark Complete
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: SPRINT PLANNER -->
+      <section id="tab-planner" class="tab-content space-y-6 hidden relative z-10">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white">Daily Planner & Tasks</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Organize your daily schedule, track deadlines, and conquer priorities.</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row gap-3 shadow-lg">
+          <input id="new-task-input" type="text" placeholder="What needs to be done today? (e.g. Implement JWT Auth Endpoint)..." class="flex-1 bg-slate-50 dark:bg-slate-950 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-brand-500" />
+          <select id="task-category" class="bg-slate-50 dark:bg-slate-950 text-xs text-slate-700 dark:text-slate-300 px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-800 focus:outline-none">
+            <option value="Backend">Backend</option>
+            <option value="Frontend">Frontend</option>
+            <option value="CS Course">CS Course</option>
+          </select>
+          <button onclick="addTask()" class="bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold px-5 py-3 rounded-xl transition shadow-lg shadow-brand-600/30">
+            Add Task
+          </button>
+        </div>
+
+        <div id="task-list" class="space-y-3">
+          <div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800/80 flex items-center justify-between transition">
+            <div class="flex items-center gap-3">
+              <input type="checkbox" onchange="toggleTask(this)" class="h-4 w-4 rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500" />
+              <div>
+                <span class="text-xs font-medium text-slate-800 dark:text-slate-200">Review PR for System Architecture Module</span>
+                <p class="text-[10px] font-mono text-slate-400 dark:text-slate-500">Due Today</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/20 px-2 py-0.5 rounded font-mono">Backend</span>
+              <span class="text-[10px] bg-rose-500/10 text-rose-500 border border-rose-500/20 px-2 py-0.5 rounded font-mono">HIGH</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: DEEP FOCUS TIMER -->
+      <section id="tab-timer" class="tab-content space-y-6 hidden relative z-10">
+        <div class="bg-white dark:bg-slate-900/90 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 text-center max-w-xl mx-auto shadow-2xl relative overflow-hidden">
+          <div class="absolute -top-12 -left-12 w-40 h-40 bg-brand-600/20 rounded-full blur-2xl"></div>
+          
+          <h2 class="text-2xl font-black text-slate-900 dark:text-white relative z-10">Focus Timer</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 relative z-10">Boost deep work sessions with the Pomodoro technique.</p>
+
+          <div class="flex justify-center gap-2 my-8 relative z-10">
+            <button onclick="setTimerMode('pomodoro')" id="mode-pomodoro" class="text-xs px-4 py-2 rounded-xl font-bold bg-brand-600 text-white shadow-lg shadow-brand-600/30">Pomodoro (25m)</button>
+            <button onclick="setTimerMode('short')" id="mode-short" class="text-xs px-4 py-2 rounded-xl font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">Short Break (5m)</button>
+            <button onclick="setTimerMode('long')" id="mode-long" class="text-xs px-4 py-2 rounded-xl font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">Long Break (15m)</button>
+          </div>
+
+          <div id="timer-display" class="text-7xl font-black font-mono tracking-widest my-8 text-slate-900 dark:text-white">
+            25:00
+          </div>
+
+          <div class="flex justify-center gap-4 relative z-10">
+            <button onclick="toggleTimer()" id="timer-start-btn" class="bg-gradient-to-r from-brand-600 to-indigo-600 hover:opacity-90 text-white text-xs font-bold px-8 py-3 rounded-xl shadow-xl shadow-brand-600/30 transition active:scale-95">
+              Start Session
+            </button>
+            <button onclick="resetTimer()" class="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold px-6 py-3 rounded-xl transition">
+              Reset
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: ANALYTICS WITH ANIMATED BARS -->
+      <section id="tab-analytics" class="tab-content space-y-6 hidden relative z-10">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white">Analytics & Productivity Insights</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Analyze weekly focus hours, habit completion rates, and performance trends.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md">
+            <p class="text-xs text-slate-500 dark:text-slate-400">Total Focus Time This Week</p>
+            <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1 font-mono">28.5 Hours</p>
+            <span class="text-xs text-accent-emerald font-medium">↑ +14% vs last week</span>
+          </div>
+          <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md">
+            <p class="text-xs text-slate-500 dark:text-slate-400">Habit Completion Rate</p>
+            <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1 font-mono">88.2%</p>
+            <span class="text-xs text-accent-emerald font-medium">Consistent streak performance</span>
+          </div>
+          <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md">
+            <p class="text-xs text-slate-500 dark:text-slate-400">Tasks Finished</p>
+            <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1 font-mono">34 Tasks</p>
+            <span class="text-xs text-brand-600 dark:text-brand-400 font-medium">On track for release</span>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl">
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-6">Weekly Focus Hours Breakdown</h3>
+          <div class="h-48 flex items-end justify-between gap-3 pt-4 border-b border-slate-200 dark:border-slate-800 pb-2">
+            <div class="chart-bar w-full bg-brand-600/30 rounded-t-xl transition-all duration-700 ease-out flex items-end justify-center pb-2 text-[10px] text-brand-600 dark:text-brand-300 font-mono font-bold" style="height: 0%" data-height="60%">Mon</div>
+            <div class="chart-bar w-full bg-gradient-to-t from-brand-600 to-indigo-500 rounded-t-xl transition-all duration-700 ease-out flex items-end justify-center pb-2 text-[10px] text-white font-mono font-bold" style="height: 0%" data-height="85%">Tue</div>
+            <div class="chart-bar w-full bg-brand-600/30 rounded-t-xl transition-all duration-700 ease-out flex items-end justify-center pb-2 text-[10px] text-brand-600 dark:text-brand-300 font-mono font-bold" style="height: 0%" data-height="45%">Wed</div>
+            <div class="chart-bar w-full bg-gradient-to-t from-brand-600 to-indigo-500 rounded-t-xl transition-all duration-700 ease-out flex items-end justify-center pb-2 text-[10px] text-white font-mono font-bold" style="height: 0%" data-height="90%">Thu</div>
+            <div class="chart-bar w-full bg-gradient-to-t from-brand-600 to-indigo-500 rounded-t-xl transition-all duration-700 ease-out flex items-end justify-center pb-2 text-[10px] text-white font-mono font-bold" style="height: 0%" data-height="80%">Fri</div>
+            <div class="chart-bar w-full bg-accent-emerald/40 rounded-t-xl transition-all duration-700 ease-out flex items-end justify-center pb-2 text-[10px] text-accent-emerald font-mono font-bold" style="height: 0%" data-height="50%">Sat</div>
+            <div class="chart-bar w-full bg-accent-emerald/40 rounded-t-xl transition-all duration-700 ease-out flex items-end justify-center pb-2 text-[10px] text-accent-emerald font-mono font-bold" style="height: 0%" data-height="35%">Sun</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: SETTINGS -->
+      <section id="tab-settings" class="tab-content space-y-6 hidden relative z-10">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white">Account & App Settings</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Customize workspace theme, system preferences, and profiles.</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 shadow-xl">
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white">Appearance & Theme Mode</h3>
+          <div class="flex items-center justify-between border-t border-slate-200 dark:border-slate-800 pt-4">
+            <div>
+              <p class="text-xs font-semibold text-slate-900 dark:text-white">Dark / Light Interface Toggle</p>
+              <p class="text-[10px] text-slate-500 dark:text-slate-400">Switch between dark obsidian and canvas light modes.</p>
+            </div>
+            <button onclick="toggleDarkMode()" class="bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold px-4 py-2 rounded-xl transition">
+              Toggle Theme
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/tasks.js"></script>
+  <script src="js/habits.js"></script>
+</body>
+</html>
